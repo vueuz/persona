@@ -1,0 +1,15 @@
+{
+    "id": "postoperative-nausea-and-vomiting-consensus",
+  "title": "术后恶心呕吐防治专家讲座",
+  "client": "-",
+  "industry": "医学",
+  "type": ["临床指南", "专家共识"],
+  "projectSize": "N/A",
+  "year": 2019,
+  "thumbnailUrl": "path/to/thumbnail.jpg",
+  "heroImageUrl": "path/to/hero-image.jpg",
+  "description": "本次专家讲座旨在为临床医务工作者提供关于术后恶心呕吐(PONV)的防治指导。共识内容涵盖PONV的发生率、危险因素、发生机制、评分方法以及各类止吐药物的应用原则和具体方法，并提出了PONV防治的总体原则和流程。",
+  "tags": ["术后恶心呕吐", "PONV", "麻醉", "止吐药物", "临床指南"],
+  "featured": false
+
+}

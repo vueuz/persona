@@ -1,0 +1,27 @@
+{
+  "id": "youwo-animal-rescue-app",
+  "title": "有我APP - 流浪动物救助平台",
+  "client": "有我APP",
+  "industry": "公益",
+  "type": ["移动应用", "社交平台"],
+  "projectSize": "中型",
+  "year": 2023,
+  "thumbnailUrl": "path/to/thumbnail.jpg",
+  "heroImageUrl": "path/to/hero-image.jpg",
+  "description": "“有我”APP致力于帮助和拯救流浪动物，为更多的流浪动物找到主人。该应用旨在解决流浪动物数量增加、救助机构基金不足等社会问题，通过线上领养、虚拟宠物互动等方式，结合线下推广和合作，建立完善的流浪动物救助体系。",
+  "tags": ["流浪动物", "救助", "领养", "公益", "社交"],
+  "featured": false,
+  "content": [
+    {
+      "heading": "项目背景",
+      "text": "当前社会存在流浪动物数量增加、救助机构基金不足等问题，对社会造成一定影响。“有我”APP旨在解决这些问题，提倡正确的养宠观念，并为流浪动物找到更多主人。",
+      "imageAlt": "流浪动物问题"
+    },
+    {
+      "heading": "核心功能",
+      "text": "APP结合线上领养和虚拟宠物互动，建立信用评级系统，设有“云圈”功能板块，提供官方信息发布、救助动物视频、宠物转手、宠物寄养、宠物医疗等服务。",
+      "imageAlt": "APP核心功能"
+    }
+
+  ]
+}

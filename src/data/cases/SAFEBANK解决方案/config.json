@@ -1,0 +1,14 @@
+{
+ "id": "safebank-cross-border-solution",
+  "title": "SAFEBANK合规跨境资金解决方案",
+  "client": "SAFEBANK",
+  "industry": "金融",
+  "type": ["金融解决方案", "跨境支付"],
+  "projectSize": "中型",
+  "year": 2020,
+  "thumbnailUrl": "path/to/thumbnail.jpg",
+  "heroImageUrl": "path/to/hero-image.jpg",
+  "description": "SAFEBANK提供合规的跨境资金解决方案，旨在为客户提供安全、高效的跨境交易体验。该方案依托持牌信托公司，通过电子商品交易模式，实现合规的跨境资金流转，并有效降低国际转账成本。方案强调资金流转的合规性，以及交易流程的安全性和透明度。",
+  "tags": ["跨境支付", "合规", "金融", "电子商品", "信托"],
+  "featured": false
+}

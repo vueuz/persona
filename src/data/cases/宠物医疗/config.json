@@ -1,0 +1,16 @@
+{
+  "id": "pet-healthcare-platform",
+  "title": "宠物医疗综合服务平台融资计划",
+  "client": "宠物医疗",
+  "industry": "医疗",
+  "type": ["融资咨询", "平台开发", "生态服务"],
+  "projectSize": "大型",
+  "year": 2020,
+  "thumbnailUrl": "https://example.com/thumb.jpg",
+  "heroImageUrl": "https://example.com/hero.jpg",
+  "description": "构建宠物医疗生态闭环的B2B2C平台，整合40万+用户与400家合作医院资源，通过社交化服务和智能化商业模式推动消费升级。项目计划融资1.5-2亿元，三年实现300%净利润增长。",
+  "tags": ["宠物经济", "医疗SAAS", "消费升级", "社交电商", "B2B2C模式"],
+  "featured": false
+
+
+}

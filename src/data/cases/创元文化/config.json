@@ -1,0 +1,14 @@
+{
+  "id": "cre8-direct",
+  "title": "宁波创元文化 公司",
+  "client": "宁波创元文化发展股份有限公司",
+  "industry": "文具",
+  "type": ["文化用品", "创意产品"],
+  "projectSize": "大型",
+  "year": 2001,
+  "thumbnailUrl": "path/to/thumbnail.jpg",
+  "heroImageUrl": "path/to/hero-image.jpg",
+  "description": "宁波创元文化发展股份有限公司 是一家从事时尚文教、休闲文化用品的企业。公司通过整合创意素材，开发与设计时尚产品，来承载手工精神、彰显个人情怀和传递情感寄托。公司采用研产销全供应链模式，线上线下融合，品牌与定制并行。",
+  "tags": ["文具", "创意", "文化用品", "设计"],
+  "featured": false
+}

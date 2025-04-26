@@ -1,0 +1,14 @@
+{
+ "id": "yunnan-qingtan-puerh-tea",
+  "title": "云南晴天普洱茶项目",
+  "client": "云南晴天茶业有限公司",
+  "industry": "农业",
+  "type": ["茶叶", "农产品"],
+  "projectSize": "小型",
+  "year": 2019,
+  "thumbnailUrl": "path/to/thumbnail.jpg",
+  "heroImageUrl": "path/to/hero-image.jpg",
+  "description": "云南晴天普洱茶项目致力于让更多人方便地接触到品质普洱茶，将普洱茶文化更深远地发展，并使普洱茶成为大众必需品。项目关注普洱茶市场的价格混乱、试饮不便、品饮不便等问题，通过线上线下渠道拓展，提供便捷品饮装，以期改变传统普洱茶销售结构。",
+  "tags": ["普洱茶", "茶叶", "传统文化", "消费品"],
+  "featured": false
+}

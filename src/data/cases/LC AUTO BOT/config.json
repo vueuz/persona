@@ -1,0 +1,14 @@
+{
+  "id": "lc-auto-bot",
+  "title": "LC AUTO BOT",
+  "client": "合益区块链科技有限公司 (LCBC Technology Ltd)",
+  "industry": "区块链",
+  "type": ["区块链", "DAPP", "量化交易"],
+  "projectSize": "N/A",
+  "year": 2018,
+  "thumbnailUrl": "path/to/thumbnail.jpg",
+  "heroImageUrl": "path/to/hero-image.jpg",
+  "description": "LC AUTO BOT is a smart quantitative trading robot developed by 合益区块链科技有限公司 (LCBC). It provides automated trading strategies for various digital assets on major global exchanges. The company also offers blockchain platform development, DAPP development, and exchange development services.",
+  "tags": ["区块链", "量化交易", "数字资产", "交易所", "DAPP"],
+  "featured": true
+}

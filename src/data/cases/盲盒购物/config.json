@@ -1,0 +1,14 @@
+{
+   "id": "weiweihe-blind-box-app",
+  "title": "“微微盒” 盲盒购物APP",
+  "client": "个人项目",
+  "industry": "电子商务",
+  "type": ["微信小程序", "移动应用"],
+  "projectSize": "小型",
+  "year": 2023,
+  "thumbnailUrl": "path/to/thumbnail.jpg",
+  "heroImageUrl": "path/to/hero-image.jpg",
+  "description": "“微微盒”是一款基于微信小程序的盲盒购物应用，旨在为Z世代消费群体打造一个充满新奇、潮流、趣味和惊喜的购物体验平台。该应用提供各类潮玩、手办、挂件等商品，用户可以通过随机抽取的方式购买。项目致力于提供简洁灵活、性能稳定可靠、用户体验优秀的盲盒购物方案。",
+  "tags": ["盲盒", "微信小程序", "Z世代", "潮玩", "电商"],
+  "featured": true
+}

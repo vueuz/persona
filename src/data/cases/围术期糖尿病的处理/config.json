@@ -1,0 +1,14 @@
+{
+  "id": "perioperative-diabetes-management",
+  "title": "围术期糖尿病的处理 - 医学专家讲座",
+  "client": "N/A",
+  "industry": "医学",
+  "type": ["临床指南", "治疗方案"],
+  "projectSize": "N/A",
+  "year": "2021",
+  "thumbnailUrl": "path/to/thumbnail.jpg",
+  "heroImageUrl": "path/to/hero-image.jpg",
+  "description": "本次专家讲座旨在指导临床医生如何管理接受手术的糖尿病患者，以降低手术风险和改善患者预后。内容涵盖了手术对糖尿病的影响、糖尿病对手术的影响，以及术前、术中和术后的具体处理方法。",
+  "tags": ["围术期", "糖尿病", "血糖管理", "手术", "内分泌"],
+  "featured": false
+}

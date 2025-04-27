@@ -9,7 +9,7 @@ interface FilterSystemProps {
 
 // 可复用的筛选区域组件
 const FilterSection: React.FC<{ title: string; items: string[]; selectedItems: string[]; onToggle: (item: any) => void }> = ({ title, items, selectedItems, onToggle }) => (
-  <div className="mb-6">
+  <div className="mb-8">
     <h3 className="text-sm font-medium text-gray-500 mb-3">{title}</h3>
     <div className="flex flex-wrap gap-2">
       {items.map(item => (
@@ -179,7 +179,7 @@ const FilterSystem: React.FC<FilterSystemProps> = ({ filters, onFilterChange }) 
 
         {/* 抽屉内容 */}
         <div
-          className={`fixed bottom-0 left-0 right-0 z-50 bg-white shadow-2xl transition-transform duration-300 ease-in-out rounded-t-lg ${ // 添加顶部圆角
+          className={`fixed bottom-0 left-0 right-0 z-50 bg-white shadow-2xl transition-transform duration-300 ease-in-out rounded-t-lg ${
             isDesktopDrawerOpen ? 'translate-y-0' : 'translate-y-full'
           }`}
         >
@@ -187,11 +187,11 @@ const FilterSystem: React.FC<FilterSystemProps> = ({ filters, onFilterChange }) 
           <div className="container mx-auto px-4 md:px-8 py-6 max-h-[70vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-medium">筛选项目</h2>
-              <button onClick={closeDesktopDrawer} aria-label="关闭筛选" className="text-gray-500 hover:text-black p-1 rounded-full hover:bg-gray-100"> // 添加 hover 背景和圆角
+              <button onClick={closeDesktopDrawer} aria-label="关闭筛选" className="text-gray-500 hover:text-black p-1 rounded-full hover:bg-gray-100">
                 <X size={24} />
               </button>
             </div>
-            <div className="space-y-0 pb-4"> // 移除 space-y-6，由 FilterSection 控制间距
+            <div className="space-y-0 pb-4">
               <FilterSection title="行业" items={industries} selectedItems={filters.industries} onToggle={toggleIndustry} />
               <FilterSection title="类型" items={types} selectedItems={filters.types} onToggle={toggleType} />
               <FilterSection title="项目规模" items={projectSizes} selectedItems={filters.projectSizes} onToggle={toggleProjectSize} />

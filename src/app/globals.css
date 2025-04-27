@@ -1,0 +1,31 @@
+/* 隐藏滚动条 */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* 滚动对齐 */
+.snap-x {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-center {
+  scroll-snap-align: center;
+}
+
+/* 自定义导航箭头 */
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  color: white;
+  font-size: 1.5rem !important;
+}
+
+/* 触控板滚动优化 */
+.swiper {
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+}

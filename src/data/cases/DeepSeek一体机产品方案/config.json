@@ -1,0 +1,14 @@
+{
+  "id": "deepseek-integrated-machine",
+  "title": "DeepSeek一体机产品解决方案",
+  "client": "VOFI",
+  "industry": "人工智能",
+  "type": ["AI基础设施", "硬件", "软件"],
+  "projectSize": "大型",
+  "year": "N/A",
+  "thumbnailUrl": "path/to/thumbnail.jpg",
+  "heroImageUrl": "path/to/hero-image.jpg",
+  "description": "DeepSeek一体机产品解决方案提供强大的计算能力，以释放DeepSeek R1的潜力。它为金融、政府和制造业等行业提供AI模型开发、训练、部署和优化的解决方案。",
+  "tags": ["人工智能", "大型语言模型", "计算基础设施", "模型管理", "优化"],
+  "featured": true
+}

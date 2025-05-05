@@ -63,52 +63,6 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 md:px-8">
-          <h2 className="text-3xl font-bold mb-12 text-center">我们的团队</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <img
-                src="https://images.pexels.com/photos/6626903/pexels-photo-6626903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                alt="团队成员"
-                className="w-full aspect-[3/4] object-cover mb-4 rounded-lg" // 图片添加圆角
-              />
-              <h3 className="text-xl font-bold mb-1">莎拉·约翰逊</h3>
-              <p className="text-gray-600 mb-2">创意总监</p>
-              <p className="text-gray-700 text-sm">
-                凭借超过 15 年的品牌设计经验，莎拉引领着我们的创意方向。
-              </p>
-            </div>
-
-            <div>
-              <img
-                src="https://images.pexels.com/photos/5082976/pexels-photo-5082976.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                alt="团队成员"
-                className="w-full aspect-[3/4] object-cover mb-4 rounded-lg" // 图片添加圆角
-              />
-              <h3 className="text-xl font-bold mb-1">迈克尔·陈</h3>
-              <p className="text-gray-600 mb-2">设计主管</p>
-              <p className="text-gray-700 text-sm">
-                迈克尔专注于数字体验和交互式设计系统。
-              </p>
-            </div>
-
-            <div>
-              <img
-                src="https://images.pexels.com/photos/8101622/pexels-photo-8101622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                alt="团队成员"
-                className="w-full aspect-[3/4] object-cover mb-4 rounded-lg" // 图片添加圆角
-              />
-              <h3 className="text-xl font-bold mb-1">艾玛·罗德里格斯</h3>
-              <p className="text-gray-600 mb-2">策略总监</p>
-              <p className="text-gray-700 text-sm">
-                艾玛确保我们的设计工作符合业务目标和品牌战略。
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-8 max-w-4xl text-center">

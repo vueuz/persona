@@ -219,7 +219,8 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse">Loading case study...</div>
+        {/* 修改：加载提示 */}
+        <div className="animate-pulse">案例加载中...</div>
       </div>
     );
   }
@@ -228,10 +229,12 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
     return (
       <div className="min-h-screen pt-32 container mx-auto px-4 md:px-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Case study not found</h1>
-          <p className="mb-8">The case study you're looking for doesn't exist or has been removed.</p>
+          {/* 修改：未找到提示 */}
+          <h1 className="text-2xl font-bold mb-4">案例未找到</h1>
+          <p className="mb-8">您查找的案例不存在或已被移除。</p>
           <Link to="/portfolio" className="inline-block bg-black text-white px-6 py-3">
-            Back to Portfolio
+            {/* 修改：返回按钮 */}
+            返回作品集
           </Link>
         </div>
       </div>
@@ -239,44 +242,36 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
   }
 
   return (
-    <main className="pt-24">
-      {/* Hero Section */}
-      <section className="relative h-[70vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={caseStudy.heroImageUrl}
-            alt={caseStudy.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black opacity-30"></div>
-        </div>
+    // 调整主容器的顶部内边距
+    <main className="pt-20 md:pt-32">
+      {/* 移除 Hero Section */}
 
-        <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4 md:px-8">
-            <Link to="/portfolio" className="inline-flex items-center text-white mb-8 hover:underline">
+      {/* Case Study Details - 将标题、标签等移到这里 */}
+      <section className="pb-20 bg-white">
+        <div className="container mx-auto px-4 md:px-8">
+          {/* 将 Back Link, Title, Tags 移到内容区域顶部 */}
+          <div className="mb-12 md:mb-16">
+            <Link to="/portfolio" className="inline-flex items-center text-gray-600 mb-8 hover:text-black hover:underline">
               <ArrowLeft size={16} className="mr-2" />
-              Back to Portfolio
+              {/* 修改：返回按钮 */}
+              返回作品集
             </Link>
 
-            <div className="max-w-2xl text-white">
-              <span className="block text-sm uppercase tracking-wider mb-2">{caseStudy.client}</span>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">{caseStudy.title}</h1>
+            <div className="max-w-3xl"> {/* 可以调整最大宽度 */}
+              <span className="block text-sm uppercase tracking-wider mb-2 text-gray-500">{caseStudy.client}</span>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black">{caseStudy.title}</h1>
 
               <div className="flex flex-wrap gap-2 mb-8">
                 {caseStudy.tags.map((tag, index) => (
-                  <span key={index} className="px-3 py-1 bg-white/10 backdrop-blur-sm text-white text-sm">
+                  <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded"> {/* 调整标签样式 */}
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Case Study Details */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 md:px-8">
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="md:col-span-2">
               <p className="text-xl leading-relaxed text-gray-800 mb-12">
@@ -297,46 +292,54 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
                     <img
                       src={item.imageUrl}
                       alt={item.imageAlt || caseStudy.title}
-                      className="w-full h-auto"
+                      className="w-full h-auto rounded-lg shadow-md" // 添加圆角和阴影
                     />
                   )}
                 </div>
               ))}
             </div>
 
+            {/* Project Details Sidebar */}
             <div>
-              <div className="bg-gray-50 p-8 sticky top-32">
-                <h3 className="text-xl font-bold mb-6">Project Details</h3>
+              {/* 保持 Sticky 效果 */}
+              <div className="bg-gray-50 p-8 sticky top-24 md:top-32 rounded-lg shadow-sm">
+                {/* 修改：侧边栏标题 */}
+                <h3 className="text-xl font-bold mb-6">项目详情</h3>
 
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 mb-1">Client</h4>
+                    {/* 修改：侧边栏字段 */}
+                    <h4 className="text-sm font-medium text-gray-500 mb-1">客户</h4>
                     <p>{caseStudy.client}</p>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 mb-1">Industry</h4>
+                    {/* 修改：侧边栏字段 */}
+                    <h4 className="text-sm font-medium text-gray-500 mb-1">行业</h4>
                     <p>{caseStudy.industry}</p>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 mb-1">Project Type</h4>
-                    <div className="flex flex-wrap gap-2">
+                    {/* 修改：侧边栏字段 */}
+                    <h4 className="text-sm font-medium text-gray-500 mb-1">项目类型</h4>
+                    <div className="flex flex-wrap gap-x-2 gap-y-1"> {/* 调整类型间距 */}
                       {caseStudy.type.map((type, index) => (
                         <span key={index} className="text-sm">
-                          {type}{index < caseStudy.type.length - 1 ? ', ' : ''}
+                          {type}{index < caseStudy.type.length - 1 ? ',' : ''}
                         </span>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 mb-1">Project Size</h4>
+                    {/* 修改：侧边栏字段 */}
+                    <h4 className="text-sm font-medium text-gray-500 mb-1">项目规模</h4>
                     <p>{caseStudy.projectSize}</p>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 mb-1">Year</h4>
+                    {/* 修改：侧边栏字段 */}
+                    <h4 className="text-sm font-medium text-gray-500 mb-1">年份</h4>
                     <p>{caseStudy.year}</p>
                   </div>
                 </div>
@@ -349,7 +352,8 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
       {/* Image Gallery */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-8">
-          <h2 className="text-2xl font-bold mb-12">Project Gallery</h2>
+          {/* 修改：图库标题 */}
+          <h2 className="text-2xl font-bold mb-12">项目案例图</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 ">
             {caseStudy.images.map((image, index) => (
               <div key={index} className="overflow-hidden shadow-sm cursor-pointer rounded-xl"
@@ -385,7 +389,8 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
               <Link to={`/case-study/${prevCaseId}`} className="group mb-8 md:mb-0">
                 <div className="flex items-center text-gray-500 mb-2 group-hover:text-black transition-colors">
                   <ChevronLeft size={16} className="mr-1" />
-                  <span>Previous Case</span>
+                  {/* 修改：导航链接 */}
+                  <span>上一个案例</span>
                 </div>
                 <span className="text-xl font-medium group-hover:underline">
                   {getCaseStudyById(prevCaseId)?.title}
@@ -396,7 +401,8 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
             {nextCaseId && (
               <Link to={`/case-study/${nextCaseId}`} className="group text-right">
                 <div className="flex items-center justify-end text-gray-500 mb-2 group-hover:text-black transition-colors">
-                  <span>Next Case</span>
+                  {/* 修改：导航链接 */}
+                  <span>下一个案例</span>
                   <ChevronRight size={16} className="ml-1" />
                 </div>
                 <span className="text-xl font-medium group-hover:underline">

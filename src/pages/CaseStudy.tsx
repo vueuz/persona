@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from '../components/ui/Link';
 import { getCaseStudyById, caseStudies } from '../data/caseStudies';
 import { CaseStudy as CaseStudyType } from '../types';
+import { motion } from 'framer-motion'
 
 interface CaseStudyProps {
   id?: string;
@@ -30,46 +31,131 @@ const ImageGalleryModal: React.FC<{
     return () => window.removeEventListener('orientationchange', handleOrientationChange);
   }, []);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
+  // 新增动画相关hook
+  const [direction, setDirection] = useState(1);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // 优化后的手势处理
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
     setTouchStartX(e.touches[0].clientX);
-  };
+    setIsAnimating(false); // 重置动画状态
+  }, []);
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEndX(e.touches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStartX !== null && touchEndX !== null) {
+  const handleTouchEnd = useCallback(() => {
+    if (touchStartX && touchEndX) {
       const delta = touchEndX - touchStartX;
-      if (delta > 50) {
-        onPrev();
-      } else if (delta < -50) {
-        onNext();
+      const absDelta = Math.abs(delta);
+
+      if (absDelta > 50) {
+        setIsAnimating(true);
+        if (delta > 50) {
+          setDirection(-1);
+          onPrev();
+        } else if (delta < -50) {
+          setDirection(1);
+          onNext();
+        }
+        // 添加动画计时器
+        setTimeout(() => setIsAnimating(false), 500);
       }
     }
     setTouchStartX(null);
     setTouchEndX(null);
-  };
+  }, [touchStartX, touchEndX]);
+
+  // 新增键盘导航支持
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (visible) {
+        if (e.key === 'ArrowLeft') onPrev();
+        if (e.key === 'ArrowRight') onNext();
+        if (e.key === 'Escape') onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [visible]);
 
   if (!visible) return null;
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80"
+    <motion.div // 使用Framer Motion
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
       style={{ touchAction: 'pan-y' }}
       onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
+      onTouchMove={(e) => setTouchEndX(e.touches[0].clientX)}
       onTouchEnd={handleTouchEnd}
+      onClick={(e) => e.stopPropagation()} // 新增父容器点击事件处理
     >
-      <button className="absolute top-4 right-4 text-white text-2xl" onClick={onClose}>×</button>
-      <button className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl" onClick={onPrev}>&lt;</button>
-      <img
-        src={images[current].url}
-        alt={images[current].alt}
-        className={`object-contain ${isLandscape ? 'max-w-[95vw] max-h-[70vh]' : 'max-h-[80vh] max-w-[90vw]'}`}
-        style={{ borderRadius: 8, transition: 'all 0.3s' }}
-      />
-      <button className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl" onClick={onNext}>&gt;</button>
-    </div>
+      {/* 优化关闭按钮 */}
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        className="absolute top-6 right-6 p-2 rounded-full bg-white/10 backdrop-blur-lg hover:bg-white/20 transition-colors z-[60]" // 提升层级
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        style={{
+          pointerEvents: 'auto',
+          zIndex: 60 // 显式设置层级
+        }}
+      >
+        <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </motion.button>
+
+      {/* 导航按钮增强 */}
+      <div className="absolute inset-0 flex items-center justify-between px-4">
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="p-3 rounded-full bg-white/10 backdrop-blur-lg hover:bg-white/20 transition-colors"
+          onClick={onPrev}
+        >
+          <ChevronLeft className="w-8 h-8 text-white" strokeWidth={1.5} />
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="p-3 rounded-full bg-white/10 backdrop-blur-lg hover:bg-white/20 transition-colors"
+          onClick={onNext}
+        >
+          <ChevronRight className="w-8 h-8 text-white" strokeWidth={1.5} />
+        </motion.button>
+      </div>
+
+      {/* 图片动画容器 */}
+      <motion.div
+        key={current}
+        initial={{ x: direction * 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: -direction * 100, opacity: 0 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className="relative"
+      >
+        <img
+          src={images[current].url}
+          alt={images[current].alt}
+          className={`${isLandscape ? 'max-w-[95vw] max-h-[70vh]' : 'max-h-[80vh] max-w-[90vw]'}
+            shadow-2xl transition-opacity duration-300 ${isAnimating ? 'opacity-50' : 'opacity-100'}`}
+          style={{ borderRadius: 12 }}
+        />
+
+        {/* 新增图片指示器 */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+          {images.map((_, idx) => (
+            <div
+              key={idx}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                current === idx ? 'bg-white w-6' : 'bg-white/30'
+              }`}
+            />
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

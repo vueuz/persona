@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 
   return (
     <main>
-      <HeroCarousel caseStudies={featuredCaseStudies} />
+      {/* <HeroCarousel caseStudies={featuredCaseStudies} /> */}
       <FeaturedCases caseStudies={featuredCaseStudies} />
 
       {/* 项目展示部分移到这里，并设置背景色 */}

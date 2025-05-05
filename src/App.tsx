@@ -10,6 +10,7 @@ import CaseStudy from './pages/CaseStudy';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService'
 
 function App() {
   const [currentPath, setCurrentPath] = React.useState(window.location.hash);
@@ -50,6 +51,8 @@ function App() {
       return <Contact />;
     } else if (currentPath === '#/privacy') {
       return <PrivacyPolicy />;
+    } else if (currentPath === '#/terms') {
+      return <TermsOfService />;
     } else {
       return <Home />;
     }
@@ -59,20 +62,22 @@ function App() {
     let title = 'VOFI Design Studio';
 
     if (currentPath === '#/') {
-      title = 'Design Studio | Visual Storytelling';
+      title = 'VOFI Design Studio | Visual Storytelling';
     } else if (currentPath === '#/portfolio') {
-      title = 'Our Portfolio | Design Studio';
+      title = 'Our Portfolio | VOFI Design Studio';
     } else if (currentPath === '#/gallery') {
-      title = 'Case Study Gallery | Design Studio';
+      title = 'Case Study Gallery | VOFI Design Studio';
     } else if (currentPath.startsWith('#/case-study/')) {
       const caseId = getCaseStudyIdFromHash();
-      title = `Case Study ${caseId} | Design Studio`;
+      title = `Case Study ${caseId} | VOFI Design Studio`;
     } else if (currentPath === '#/about') {
-      title = 'About Us | Design Studio';
+      title = 'About Us | VOFI Design Studio';
     } else if (currentPath === '#/contact') {
-      title = 'Contact | Design Studio';
+      title = 'Contact | VOFI Design Studio';
     } else if (currentPath === '#/privacy') {
-      title = 'Privacy Policy | Design Studio';
+      title = 'Privacy Policy | VOFI Design Studio';
+    } else if (currentPath === '#/terms') {
+      title = 'Terms of Service | VOFI Design Studio';
     }
 
     document.title = title;

@@ -8,11 +8,89 @@ interface CaseStudyProps {
   id?: string;
 }
 
+// 新增图片大图 Modal 组件
+const ImageGalleryModal: React.FC<{
+  images: { url: string; alt: string }[];
+  current: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+  visible: boolean;
+}> = ({ images, current, onClose, onPrev, onNext, visible }) => {
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+  const [isLandscape, setIsLandscape] = useState(false);
+
+  useEffect(() => {
+    function handleOrientationChange() {
+      setIsLandscape(window.matchMedia("(orientation: landscape)").matches);
+    }
+    handleOrientationChange();
+    window.addEventListener('orientationchange', handleOrientationChange);
+    return () => window.removeEventListener('orientationchange', handleOrientationChange);
+  }, []);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX !== null && touchEndX !== null) {
+      const delta = touchEndX - touchStartX;
+      if (delta > 50) {
+        onPrev();
+      } else if (delta < -50) {
+        onNext();
+      }
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
+
+  if (!visible) return null;
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80"
+      style={{ touchAction: 'pan-y' }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      <button className="absolute top-4 right-4 text-white text-2xl" onClick={onClose}>×</button>
+      <button className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl" onClick={onPrev}>&lt;</button>
+      <img
+        src={images[current].url}
+        alt={images[current].alt}
+        className={`object-contain ${isLandscape ? 'max-w-[95vw] max-h-[70vh]' : 'max-h-[80vh] max-w-[90vw]'}`}
+        style={{ borderRadius: 8, transition: 'all 0.3s' }}
+      />
+      <button className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl" onClick={onNext}>&gt;</button>
+    </div>
+  );
+};
+
 const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
   const [caseStudy, setCaseStudy] = useState<CaseStudyType | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [nextCaseId, setNextCaseId] = useState<string | null>(null);
   const [prevCaseId, setPrevCaseId] = useState<string | null>(null);
+
+  // 新增：用于控制大图 Modal 的状态
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalIndex, setModalIndex] = useState(0);
+
+  // 可选：监听横屏，移动端体验优化
+  useEffect(() => {
+    function handleOrientationChange() {
+      // 你可以根据需要在这里处理横屏样式
+    }
+    window.addEventListener('orientationchange', handleOrientationChange);
+    return () => window.removeEventListener('orientationchange', handleOrientationChange);
+  }, []);
 
   useEffect(() => {
     // In a real application, you would fetch the case study from an API
@@ -172,10 +250,13 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-8">
           <h2 className="text-2xl font-bold mb-12">Project Gallery</h2>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 ">
             {caseStudy.images.map((image, index) => (
-              <div key={index} className="overflow-hidden shadow-sm">
+              <div key={index} className="overflow-hidden shadow-sm cursor-pointer"
+                onClick={() => {
+                  setModalIndex(index);
+                  setModalOpen(true);
+                }}>
                 <img
                   src={image.url}
                   alt={image.alt}
@@ -185,6 +266,15 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
             ))}
           </div>
         </div>
+        {/* 大图 Modal 组件 */}
+        <ImageGalleryModal
+          images={caseStudy.images}
+          current={modalIndex}
+          visible={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onPrev={() => setModalIndex((modalIndex - 1 + caseStudy.images.length) % caseStudy.images.length)}
+          onNext={() => setModalIndex((modalIndex + 1) % caseStudy.images.length)}
+        />
       </section>
 
       {/* Navigation to Other Case Studies */}

@@ -5,6 +5,7 @@ import { getFeaturedCaseStudies } from '../data/caseStudies';
 import { Link } from '../components/ui/Link'; // 引入 Link 组件
 import { ArrowUpRight } from 'lucide-react'; // 引入图标
 import ProjectGallery from '../components/home/ProjectGallery';
+import CoreServices from '../components/home/CoreServices'; // 引入新组件
 
 const Home: React.FC = () => {
   const featuredCaseStudies = getFeaturedCaseStudies();
@@ -30,12 +31,15 @@ const Home: React.FC = () => {
       <FeaturedCases caseStudies={featuredCaseStudies} />
 
       {/* 项目展示部分移到这里，并设置背景色 */}
-      <section className="hidden md:block py-24 bg-gray-200">
+      {/* <section className="hidden md:block py-24 bg-gray-200">
         <div className="container px-4 md:px-8 w-full h-[600px]" >
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center md:text-left">项目展示</h2>
           <ProjectGallery images={galleryImages}  />
         </div>
-      </section>
+      </section> */}
+
+      {/* 添加核心技能与服务组件 */}
+      <CoreServices />
 
       <section className="py-24 bg-black text-white">
         <div className="container mx-auto px-4 md:px-8">

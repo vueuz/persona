@@ -1,7 +1,8 @@
 import React from 'react';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import ContactButton from './components/layout/ContactButton';
+// 移除下面这行导入
+// import ContactButton from './components/layout/ContactButton';
 import Home from './pages/Home';
 import Portfolio from './pages/Portfolio';
 import Gallery from './pages/Gallery';
@@ -53,7 +54,7 @@ function App() {
 
   React.useEffect(() => {
     let title = 'Design Studio';
-    
+
     if (currentPath === '#/') {
       title = 'Design Studio | Visual Storytelling';
     } else if (currentPath === '#/portfolio') {
@@ -68,7 +69,7 @@ function App() {
     } else if (currentPath === '#/contact') {
       title = 'Contact | Design Studio';
     }
-    
+
     document.title = title;
   }, [currentPath]);
 
@@ -77,7 +78,8 @@ function App() {
       <Header />
       {renderContent()}
       <Footer />
-      <ContactButton />
+      {/* 移除下面这行组件 */}
+      {/* <ContactButton /> */}
     </>
   );
 }

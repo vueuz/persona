@@ -34,13 +34,13 @@ const FeaturedCases: React.FC<FeaturedCasesProps> = ({ caseStudies }) => {
           {caseStudies.map((caseStudy) => (
             <Link key={caseStudy.id} to={`/case-study/${caseStudy.id}`}>
               <div className="group cursor-pointer">
-                <div className="relative overflow-hidden mb-4 rounded-lg">
+                <div className="relative overflow-hidden aspect-[16/9] mb-4 shadow-lg rounded-xl">
                   <img
                     src={caseStudy.thumbnailUrl}
                     alt={caseStudy.title}
-                    className="w-full h-[350px] object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity rounded-lg"></div>
+                  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                 </div>
                 <h3 className="text-xl font-medium mb-2 group-hover:underline">
                   {caseStudy.title}

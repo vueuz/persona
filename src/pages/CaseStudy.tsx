@@ -107,7 +107,7 @@ const ImageGalleryModal: React.FC<{
         </svg>
       </motion.button>
 
-      
+
 
       {/* 图片动画容器 */}
       <motion.div
@@ -352,7 +352,7 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
           <h2 className="text-2xl font-bold mb-12">Project Gallery</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 ">
             {caseStudy.images.map((image, index) => (
-              <div key={index} className="overflow-hidden shadow-sm cursor-pointer"
+              <div key={index} className="overflow-hidden shadow-sm cursor-pointer rounded-xl"
                 onClick={() => {
                   setModalIndex(index);
                   setModalOpen(true);

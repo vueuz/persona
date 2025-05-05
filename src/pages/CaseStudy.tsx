@@ -107,24 +107,7 @@ const ImageGalleryModal: React.FC<{
         </svg>
       </motion.button>
 
-      {/* 导航按钮增强 */}
-      <div className="absolute inset-0 flex items-center justify-between px-4">
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          className="p-3 rounded-full bg-white/10 backdrop-blur-lg hover:bg-white/20 transition-colors"
-          onClick={onPrev}
-        >
-          <ChevronLeft className="w-8 h-8 text-white" strokeWidth={1.5} />
-        </motion.button>
-
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          className="p-3 rounded-full bg-white/10 backdrop-blur-lg hover:bg-white/20 transition-colors"
-          onClick={onNext}
-        >
-          <ChevronRight className="w-8 h-8 text-white" strokeWidth={1.5} />
-        </motion.button>
-      </div>
+      
 
       {/* 图片动画容器 */}
       <motion.div
@@ -133,26 +116,57 @@ const ImageGalleryModal: React.FC<{
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: -direction * 100, opacity: 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative"
+        className="relative flex flex-col items-center gap-6"
       >
         <img
           src={images[current].url}
           alt={images[current].alt}
-          className={`${isLandscape ? 'max-w-[95vw] max-h-[70vh]' : 'max-h-[80vh] max-w-[90vw]'}
+          className={`${isLandscape ? 'max-w-[95vw] max-h-[60vh]' : 'max-h-[70vh] max-w-[90vw]'}
             shadow-2xl transition-opacity duration-300 ${isAnimating ? 'opacity-50' : 'opacity-100'}`}
           style={{ borderRadius: 12 }}
         />
 
-        {/* 新增图片指示器 */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-          {images.map((_, idx) => (
-            <div
-              key={idx}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                current === idx ? 'bg-white w-6' : 'bg-white/30'
-              }`}
-            />
-          ))}
+        {/* 组合容器 */}
+        <div className="w-full max-w-[90vw] flex items-center justify-between px-4">
+        <div />
+
+
+          {/* 图片指示器 */}
+          <div className="flex gap-2 mx-4">
+            {/* 当前图片进度 */}
+            ${  (
+              <div className="flex items-center">
+                <div className="w-full h-1 bg-white rounded-full">
+                  <div
+                    className="h-full bg-black rounded-full"
+                    style={{ width: `${(current / (images.length - 1)) * 100}%` }}
+                  />
+                </div>
+                <span className="text-sm text-gray-300">{current + 1}/{images.length}</span>
+              </div>
+            )}
+          </div>
+          {/* 图片预览按钮 */}
+          <div className="flex items-center ">
+
+
+          {/* 左箭头 */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="p-2 rounded-full bg-white/10 backdrop-blur-lg hover:bg-white/20 transition-colors mr-4"
+            onClick={onPrev}
+          >
+            <ChevronLeft className="w-6 h-6 text-white" strokeWidth={1.5} />
+          </motion.button>
+          {/* 右箭头 */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="p-2 rounded-full bg-white/10 backdrop-blur-lg hover:bg-white/20 transition-colors"
+            onClick={onNext}
+          >
+            <ChevronRight className="w-6 h-6 text-white" strokeWidth={1.5} />
+          </motion.button>
+          </div>
         </div>
       </motion.div>
     </motion.div>

@@ -210,6 +210,7 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
     // In a real application, you would fetch the case study from an API
     // For this demo, we'll use the local data with a simulated loading delay
     setLoading(true);
+    window.scrollTo(0, 0); // 新增：在 id 变化时滚动到页面顶部
 
     setTimeout(() => {
       const fetchedCaseStudy = getCaseStudyById(id);
@@ -228,7 +229,7 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
 
       setLoading(false);
     }, 300);
-  }, [id]);
+  }, [id]); // 这个 useEffect 依赖于 id，当 id 变化时会执行
 
   // 新增：用于控制大图 Modal 的状态
   const [modalOpen, setModalOpen] = useState(false);

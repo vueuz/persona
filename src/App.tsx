@@ -9,6 +9,7 @@ import Gallery from './pages/Gallery';
 import CaseStudy from './pages/CaseStudy';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   const [currentPath, setCurrentPath] = React.useState(window.location.hash);
@@ -47,13 +48,15 @@ function App() {
       return <About />;
     } else if (currentPath === '#/contact') {
       return <Contact />;
+    } else if (currentPath === '#/privacy') {
+      return <PrivacyPolicy />;
     } else {
       return <Home />;
     }
   };
 
   React.useEffect(() => {
-    let title = 'Design Studio';
+    let title = 'VOFI Design Studio';
 
     if (currentPath === '#/') {
       title = 'Design Studio | Visual Storytelling';
@@ -68,6 +71,8 @@ function App() {
       title = 'About Us | Design Studio';
     } else if (currentPath === '#/contact') {
       title = 'Contact | Design Studio';
+    } else if (currentPath === '#/privacy') {
+      title = 'Privacy Policy | Design Studio';
     }
 
     document.title = title;

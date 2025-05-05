@@ -14,10 +14,11 @@ const ImageGalleryModal: React.FC<{
   images: { url: string; alt: string }[];
   current: number;
   onClose: () => void;
-  onPrev: () => void;
-  onNext: () => void;
+  onPrev: () => void; // 保持不变
+  onNext: () => void; // 保持不变
   visible: boolean;
-}> = ({ images, current, onClose, onPrev, onNext, visible }) => {
+  direction: number; // 新增 direction prop
+}> = ({ images, current, onClose, onPrev, onNext, visible, direction }) => { // 添加 direction 到解构赋值
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
   const [isLandscape, setIsLandscape] = useState(false);
@@ -31,11 +32,11 @@ const ImageGalleryModal: React.FC<{
     return () => window.removeEventListener('orientationchange', handleOrientationChange);
   }, []);
 
-  // 新增动画相关hook
-  const [direction, setDirection] = useState(1);
+  // 移除动画相关hook
+  // const [direction, setDirection] = useState(1); // 移除
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // 优化后的手势处理
+  // 优化后的手势处理 - 注意：手势滑动方向可能与按钮点击方向逻辑需要统一或区分处理
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     setTouchStartX(e.touches[0].clientX);
     setIsAnimating(false); // 重置动画状态
@@ -49,11 +50,11 @@ const ImageGalleryModal: React.FC<{
       if (absDelta > 50) {
         setIsAnimating(true);
         if (delta > 50) {
-          setDirection(-1);
-          onPrev();
+          // setDirection(-1); // 移除 - 方向由父组件控制
+          onPrev(); // 调用父组件传递的 onPrev
         } else if (delta < -50) {
-          setDirection(1);
-          onNext();
+          // setDirection(1); // 移除 - 方向由父组件控制
+          onNext(); // 调用父组件传递的 onNext
         }
         // 添加动画计时器
         setTimeout(() => setIsAnimating(false), 500);
@@ -61,7 +62,24 @@ const ImageGalleryModal: React.FC<{
     }
     setTouchStartX(null);
     setTouchEndX(null);
-  }, [touchStartX, touchEndX]);
+  // 依赖项中移除 setDirection，添加 onPrev, onNext
+  }, [touchStartX, touchEndX, onPrev, onNext]);
+
+  // 新增：控制 body 滚动
+  useEffect(() => {
+    if (visible) {
+      // 模态框打开时，禁止 body 滚动
+      document.body.style.overflow = 'hidden';
+    } else {
+      // 模态框关闭时，恢复 body 滚动
+      document.body.style.overflow = '';
+    }
+
+    // 组件卸载时，确保恢复 body 滚动
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [visible]); // 依赖 visible 状态
 
   // 新增键盘导航支持
   useEffect(() => {
@@ -109,12 +127,12 @@ const ImageGalleryModal: React.FC<{
 
 
 
-      {/* 图片动画容器 */}
+      {/* 图片动画容器 - 使用传入的 direction */}
       <motion.div
         key={current}
-        initial={{ x: direction * 100, opacity: 0 }}
+        initial={{ x: direction * 100, opacity: 0 }} // 使用 prop: direction
         animate={{ x: 0, opacity: 1 }}
-        exit={{ x: -direction * 100, opacity: 0 }}
+        exit={{ x: -direction * 100, opacity: 0 }} // 使用 prop: direction
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className="relative flex flex-col items-center gap-6"
       >
@@ -154,7 +172,7 @@ const ImageGalleryModal: React.FC<{
           <motion.button
             whileHover={{ scale: 1.1 }}
             className="p-2 rounded-full bg-white/10 backdrop-blur-lg hover:bg-white/20 transition-colors mr-4"
-            onClick={onPrev}
+            onClick={onPrev} // 保持不变
           >
             <ChevronLeft className="w-6 h-6 text-white" strokeWidth={1.5} />
           </motion.button>
@@ -162,7 +180,7 @@ const ImageGalleryModal: React.FC<{
           <motion.button
             whileHover={{ scale: 1.1 }}
             className="p-2 rounded-full bg-white/10 backdrop-blur-lg hover:bg-white/20 transition-colors"
-            onClick={onNext}
+            onClick={onNext} // 保持不变
           >
             <ChevronRight className="w-6 h-6 text-white" strokeWidth={1.5} />
           </motion.button>
@@ -178,10 +196,6 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
   const [loading, setLoading] = useState(true);
   const [nextCaseId, setNextCaseId] = useState<string | null>(null);
   const [prevCaseId, setPrevCaseId] = useState<string | null>(null);
-
-  // 新增：用于控制大图 Modal 的状态
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalIndex, setModalIndex] = useState(0);
 
   // 可选：监听横屏，移动端体验优化
   useEffect(() => {
@@ -215,6 +229,30 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
       setLoading(false);
     }, 300);
   }, [id]);
+
+  // 新增：用于控制大图 Modal 的状态
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalIndex, setModalIndex] = useState(0);
+  const [direction, setDirection] = useState(1); // 新增 direction 状态
+
+  // Define handlePrevImage function
+  const handlePrevImage = () => {
+    if (!caseStudy) return;
+    setDirection(-1);
+    setModalIndex((prevIndex) =>
+      prevIndex === 0 ? caseStudy.images.length - 1 : prevIndex - 1
+    );
+  };
+
+  // Define handleNextImage function
+  const handleNextImage = () => {
+    if (!caseStudy) return;
+    setDirection(1);
+    setModalIndex((prevIndex) =>
+      prevIndex === caseStudy.images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
 
   if (loading) {
     return (
@@ -370,14 +408,15 @@ const CaseStudy: React.FC<CaseStudyProps> = ({ id = '1' }) => {
             ))}
           </div>
         </div>
-        {/* 大图 Modal 组件 */}
+        {/* 大图 Modal 组件 - 传递新的 props */}
         <ImageGalleryModal
           images={caseStudy.images}
           current={modalIndex}
           visible={modalOpen}
           onClose={() => setModalOpen(false)}
-          onPrev={() => setModalIndex((modalIndex - 1 + caseStudy.images.length) % caseStudy.images.length)}
-          onNext={() => setModalIndex((modalIndex + 1) % caseStudy.images.length)}
+          onPrev={handlePrevImage} // Use the defined function
+          onNext={handleNextImage} // Use the defined function
+          direction={direction}   // 传递 direction 状态
         />
       </section>
 

@@ -30,7 +30,7 @@ const Home: React.FC = () => {
       <FeaturedCases caseStudies={featuredCaseStudies} />
 
       {/* 项目展示部分移到这里，并设置背景色 */}
-      <section className="py-24 bg-gray-200">
+      <section className="hidden md:block py-24 bg-gray-200">
         <div className="container px-4 md:px-8 w-full h-[600px]" >
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center md:text-left">项目展示</h2>
           <ProjectGallery images={galleryImages}  />
